@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+
+  db:
+    image: mysql:8.0
+    container_name: lumen_db
+    environment:
+      MYSQL_DATABASE: pastelaria
+      MYSQL_USER: devlucas
+      MYSQL_PASSWORD: dexian123
+      MYSQL_ROOT_PASSWORD: dexian123
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - lumen_network
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: lumen_app
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/var/www
+    networks:
+      - lumen_network
+    depends_on:
+      - db
+
+networks:
+  lumen_network:
+    driver: bridge
+
+volumes:
+  db_data:
