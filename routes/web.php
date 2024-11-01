@@ -13,14 +13,6 @@
 |
 */
 
-// $router->get('/', function () use ($router) {
-//     return $router->app->version();
-// });
-
-use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\OrderController;
-
 $router->group(['prefix' => 'customers'], function () use ($router) {
     $router->get('/', 'CustomerController@index');
     $router->get('/{id}', 'CustomerController@show');

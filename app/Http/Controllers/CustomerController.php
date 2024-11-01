@@ -27,6 +27,7 @@ class CustomerController extends Controller
             'address' => 'required|string',
             'zipcode' => 'required|string',
         ]);
+        dd($request->all());
 
         return Customer::create($request->all());
     }
