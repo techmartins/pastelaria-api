@@ -6,6 +6,8 @@ use App\Models\Order;
 use App\Models\Customer;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMail;
 
 class OrderController extends Controller
 {
@@ -34,7 +36,7 @@ class OrderController extends Controller
         }
 
         // Dispara o e-mail com detalhes do pedido
-        // Mail::to($pedido->cliente->email)->send(new PedidoCriado($pedido));
+        Mail::to($order->customer->email)->send(new SendMail($order));
 
         return $order->load('products');
     }
@@ -58,4 +60,3 @@ class OrderController extends Controller
         return response()->json(['message' => 'Pedido deletado com sucesso.']);
     }
 }
-

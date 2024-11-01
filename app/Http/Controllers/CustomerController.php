@@ -27,7 +27,6 @@ class CustomerController extends Controller
             'address' => 'required|string',
             'zipcode' => 'required|string',
         ]);
-        dd($request->all());
 
         return Customer::create($request->all());
     }
@@ -36,6 +35,7 @@ class CustomerController extends Controller
     {
         $customer = Customer::findOrFail($id);
         $customer->update($request->all());
+
         return $customer;
     }
 
@@ -43,6 +43,7 @@ class CustomerController extends Controller
     {
         $customer = Customer::findOrFail($id);
         $customer->delete();
+
         return response()->json(['message' => 'Cliente deletado com sucesso.']);
     }
 }

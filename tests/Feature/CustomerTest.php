@@ -44,12 +44,17 @@ class CustomerTest extends TestCase
             'register_in' => $faker->dateTimeBetween('-1 year', 'now')->format('Y-m-d H:i:s'),
         ];
 
-        $response = $this->http->request('POST', 'http://localhost:8000/customers', [
-            'json' => $data
-        ]);
+        try {
+            $response = $this->http->request('POST', 'http://localhost:8000/customers', [
+                'json' => $data
+            ]);
 
-        $this->assertEquals(201, $response->getStatusCode());
-        $this->assertJson($response->getBody()->getContents());
+            $this->assertEquals(201, $response->getStatusCode());
+            $this->assertJson($response->getBody()->getContents());
+        } catch (\Exception $e) {
+            // Logar a exceção para análise posterior
+            $this->fail('Erro ao criar cliente: ' . $e->getMessage());
+        }
     }
 
     public function testUpdateCustomer()
